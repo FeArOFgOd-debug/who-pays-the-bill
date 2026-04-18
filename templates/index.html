@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Who Pays The Bill? A fun randomizer app to decide who picks up the tab among friends.">
+    <title>Who Pays The Bill? 💸</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="bg-particles" id="bgParticles"></div>
+
+    <div class="app-container">
+       
+        <header class="app-header">
+            <h1 class="app-title">Who Pays The Bill?</h1>
+            <p class="app-subtitle">Spin the wheel and let fate decide!</p>
+        </header>
+
+       
+        <main class="main-content">
+           
+            <section class="wheel-section">
+                <div class="wheel-container" id="wheelContainer">
+                    <canvas id="wheelCanvas" width="360" height="360"></canvas>
+                    <div class="wheel-center">
+                        <div class="wheel-pointer">▼</div>
+                    </div>
+                </div>
+
+                <button class="spin-btn" id="spinBtn" onclick="spinWheel()">
+                    <span class="spin-btn-text">SPIN!</span>
+                    <span class="spin-btn-icon"></span>
+                </button>
+            </section>
+
+          
+            <section class="result-section hidden" id="resultSection">
+                <div class="result-card">
+                    <div class="result-emoji"></div>
+                    <p class="result-label">The lucky one is...</p>
+                    <h2 class="result-name" id="resultName"></h2>
+                    <p class="result-tagline">time to open that wallet!</p>
+                    <div class="confetti-container" id="confettiContainer"></div>
+                </div>
+            </section>
+
+           
+            <section class="friends-section">
+                <div class="friends-card">
+                    <div class="friends-header">
+                        <h3 class="friends-title">👥 The Squad</h3>
+                        <button class="add-btn" id="addBtn" onclick="addFriend()">
+                            <span>+</span> Add
+                        </button>
+                    </div>
+                    <ul class="friends-list" id="friendsList">
+                        {% for friend in friends %}
+                        <li class="friend-item" data-name="{{ friend }}">
+                            <div class="friend-avatar">{{ friend[0] }}</div>
+                            <span class="friend-name">{{ friend }}</span>
+                            <button class="remove-btn" onclick="removeFriend(this)" title="Remove">✕</button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+
+            
+            <section class="history-section">
+                <div class="history-card">
+                    <h3 class="history-title">Bill History</h3>
+                    <div class="history-list" id="historyList">
+                        <p class="history-empty">No spins yet. Give it a go!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        
+        <footer class="app-footer">
+            <p> AB PAY KR DALLE </p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
